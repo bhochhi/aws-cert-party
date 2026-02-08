@@ -8,7 +8,7 @@ import {
   Trophy,
 } from 'lucide-react';
 import type { Question, QuizResult } from '../types';
-import { DOMAINS, EXAM_CONFIG } from '../data/domains';
+import { useCertification } from '../context/CertificationContext';
 import { formatTime } from '../utils/quiz';
 
 interface ResultsViewProps {
@@ -24,7 +24,8 @@ export default function ResultsView({
   onRetry,
   onHome,
 }: ResultsViewProps) {
-  const passed = result.score >= EXAM_CONFIG.passingScore;
+  const { domains, examConfig } = useCertification();
+  const passed = result.score >= examConfig.passingScore;
 
   const domainColorMap: Record<number, string> = {
     1: 'text-domain1',
@@ -63,7 +64,7 @@ export default function ResultsView({
         </p>
         <p className="text-sm text-gray-500 mt-2">
           {result.correctCount} of {result.totalQuestions} correct
-          {result.mode === 'mock' && ` — Passing: ${EXAM_CONFIG.passingScore}%`}
+          {result.mode === 'mock' && ` — Passing: ${examConfig.passingScore}%`}
         </p>
       </div>
 
@@ -97,7 +98,7 @@ export default function ResultsView({
           Domain Breakdown
         </h3>
         <div className="space-y-3">
-          {DOMAINS.map((d) => {
+          {domains.map((d) => {
             const breakdown = result.domainBreakdown[d.id];
             if (!breakdown) return null;
             const pct = breakdown.total > 0
@@ -116,7 +117,7 @@ export default function ResultsView({
                 <div className="w-full bg-gray-100 rounded-full h-2">
                   <div
                     className={`h-2 rounded-full transition-all ${
-                      pct >= EXAM_CONFIG.passingScore ? 'bg-correct' : 'bg-incorrect'
+                      pct >= examConfig.passingScore ? 'bg-correct' : 'bg-incorrect'
                     }`}
                     style={{ width: `${pct}%` }}
                   />

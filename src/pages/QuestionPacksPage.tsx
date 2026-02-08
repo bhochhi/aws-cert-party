@@ -1,22 +1,27 @@
 import { useState } from 'react';
 import { Package, CheckSquare, Square, ChevronDown, ChevronUp } from 'lucide-react';
-import { DOMAINS } from '../data/domains';
-import { allQuestionPacks, getPacksByDomain } from '../data/questions';
+import { useCertification } from '../context/CertificationContext';
 import {
   loadActivePackIds,
   saveActivePackIds,
   loadProgress,
   getPackCompletionCount,
 } from '../utils/storage';
-import type { Domain } from '../types';
 
 export default function QuestionPacksPage() {
-  const [activeIds, setActiveIds] = useState<string[]>(loadActivePackIds);
-  const [expandedDomain, setExpandedDomain] = useState<Domain | null>(null);
-  const progress = loadProgress();
+  const { certId, domains, allPacks, getPacksByDomain, refreshQuestions } = useCertification();
+  const [activeIds, setActiveIds] = useState<string[]>(() => loadActivePackIds(certId));
+  const [expandedDomain, setExpandedDomain] = useState<number | null>(null);
+  const progress = loadProgress(certId);
 
-  const allPackIds = allQuestionPacks.map((p) => p.id);
+  const allPackIds = allPacks.map((p) => p.id);
   const isAllActive = activeIds.length === 0; // empty = all
+
+  function updatePackIds(ids: string[]) {
+    setActiveIds(ids);
+    saveActivePackIds(certId, ids);
+    refreshQuestions();
+  }
 
   function toggle(packId: string) {
     let next: string[];
@@ -32,11 +37,10 @@ export default function QuestionPacksPage() {
 
     // if every pack is selected, normalize to []
     if (next.length === allPackIds.length) next = [];
-    setActiveIds(next);
-    saveActivePackIds(next);
+    updatePackIds(next);
   }
 
-  function selectAllForDomain(domain: Domain) {
+  function selectAllForDomain(domain: number) {
     const domainPackIds = getPacksByDomain(domain).map((p) => p.id);
     let current = isAllActive ? [...allPackIds] : [...activeIds];
 
@@ -46,42 +50,38 @@ export default function QuestionPacksPage() {
     }
 
     if (current.length === allPackIds.length) current = [];
-    setActiveIds(current);
-    saveActivePackIds(current);
+    updatePackIds(current);
   }
 
-  function deselectAllForDomain(domain: Domain) {
+  function deselectAllForDomain(domain: number) {
     const domainPackIds = new Set(getPacksByDomain(domain).map((p) => p.id));
     let current = isAllActive ? [...allPackIds] : [...activeIds];
 
     current = current.filter((id) => !domainPackIds.has(id));
-    setActiveIds(current);
-    saveActivePackIds(current);
+    updatePackIds(current);
   }
 
   function isPackActive(packId: string): boolean {
     return isAllActive || activeIds.includes(packId);
   }
 
-  function isDomainAllSelected(domain: Domain): boolean {
+  function isDomainAllSelected(domain: number): boolean {
     const domainPacks = getPacksByDomain(domain);
     return domainPacks.every((p) => isPackActive(p.id));
   }
 
   function selectAll() {
-    setActiveIds([]);
-    saveActivePackIds([]);
+    updatePackIds([]);
   }
 
   function deselectAll() {
-    setActiveIds(['__none__']); // sentinel — nothing matches
-    saveActivePackIds(['__none__']);
+    updatePackIds(['__none__']); // sentinel — nothing matches
   }
 
   // count active questions
   const activeQuestionCount = isAllActive
-    ? allQuestionPacks.reduce((s, p) => s + p.questions.length, 0)
-    : allQuestionPacks
+    ? allPacks.reduce((s, p) => s + p.questions.length, 0)
+    : allPacks
         .filter((p) => activeIds.includes(p.id))
         .reduce((s, p) => s + p.questions.length, 0);
 
@@ -111,7 +111,7 @@ export default function QuestionPacksPage() {
             <h1 className="text-2xl font-bold text-aws-squid-ink">Question Packs</h1>
             <p className="text-sm text-gray-500">
               {activeQuestionCount} questions active across{' '}
-              {allQuestionPacks.filter((p) => isPackActive(p.id)).length} packs
+              {allPacks.filter((p) => isPackActive(p.id)).length} packs
             </p>
           </div>
         </div>
@@ -132,7 +132,7 @@ export default function QuestionPacksPage() {
       </div>
 
       {/* Domain Groups */}
-      {DOMAINS.map((domain) => {
+      {domains.map((domain) => {
         const packs = getPacksByDomain(domain.id);
         if (packs.length === 0) return null;
         const isExpanded = expandedDomain === domain.id;
@@ -261,7 +261,7 @@ export default function QuestionPacksPage() {
       {/* Info banner */}
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800">
         <strong>Tip:</strong> Drop new <code>.json</code> pack files into any{' '}
-        <code>src/data/questions/domainN/</code> folder and they'll appear here
+        <code>src/data/certifications/&lt;cert-id&gt;/questions/domainN/</code> folder and they'll appear here
         automatically after a rebuild.
       </div>
     </div>

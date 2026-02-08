@@ -1,11 +1,31 @@
 import type { QuizResult, UserProgress } from '../types';
 
-const STORAGE_KEY = 'aws-cert-party-progress';
-const PACKS_KEY = 'aws-cert-party-active-packs';
+const PREFIX = 'aws-cert-party';
+const CERT_KEY = `${PREFIX}-active-cert`;
 
-export function loadProgress(): UserProgress {
+function progressKey(certId: string): string {
+  return `${PREFIX}-progress-${certId}`;
+}
+
+function packsKey(certId: string): string {
+  return `${PREFIX}-active-packs-${certId}`;
+}
+
+/* ── Active Certification ────────────────────────────────────── */
+
+export function loadActiveCertId(): string | null {
+  return localStorage.getItem(CERT_KEY);
+}
+
+export function saveActiveCertId(certId: string): void {
+  localStorage.setItem(CERT_KEY, certId);
+}
+
+/* ── Progress (cert-scoped) ──────────────────────────────────── */
+
+export function loadProgress(certId: string): UserProgress {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(progressKey(certId));
     if (raw) {
       const data = JSON.parse(raw);
       return {
@@ -20,44 +40,44 @@ export function loadProgress(): UserProgress {
   return { results: [], flaggedQuestions: [], questionsAttempted: {} };
 }
 
-export function saveProgress(progress: UserProgress): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+export function saveProgress(certId: string, progress: UserProgress): void {
+  localStorage.setItem(progressKey(certId), JSON.stringify(progress));
 }
 
-export function addResult(result: QuizResult): void {
-  const progress = loadProgress();
+export function addResult(certId: string, result: QuizResult): void {
+  const progress = loadProgress(certId);
   progress.results.push(result);
-  saveProgress(progress);
+  saveProgress(certId, progress);
 }
 
-export function toggleFlagged(questionId: string): void {
-  const progress = loadProgress();
+export function toggleFlagged(certId: string, questionId: string): void {
+  const progress = loadProgress(certId);
   const idx = progress.flaggedQuestions.indexOf(questionId);
   if (idx >= 0) {
     progress.flaggedQuestions.splice(idx, 1);
   } else {
     progress.flaggedQuestions.push(questionId);
   }
-  saveProgress(progress);
+  saveProgress(certId, progress);
 }
 
-export function recordAttempt(questionId: string): void {
-  const progress = loadProgress();
+export function recordAttempt(certId: string, questionId: string): void {
+  const progress = loadProgress(certId);
   progress.questionsAttempted[questionId] =
     (progress.questionsAttempted[questionId] || 0) + 1;
-  saveProgress(progress);
+  saveProgress(certId, progress);
 }
 
-export function clearAllProgress(): void {
-  localStorage.removeItem(STORAGE_KEY);
+export function clearAllProgress(certId: string): void {
+  localStorage.removeItem(progressKey(certId));
 }
 
-/* ── Pack Selection ──────────────────────────────────────────── */
+/* ── Pack Selection (cert-scoped) ────────────────────────────── */
 
 /** Load active pack IDs. Empty array means "all packs active". */
-export function loadActivePackIds(): string[] {
+export function loadActivePackIds(certId: string): string[] {
   try {
-    const raw = localStorage.getItem(PACKS_KEY);
+    const raw = localStorage.getItem(packsKey(certId));
     if (raw) return JSON.parse(raw) as string[];
   } catch {
     // corrupted
@@ -65,8 +85,8 @@ export function loadActivePackIds(): string[] {
   return []; // default: all active
 }
 
-export function saveActivePackIds(ids: string[]): void {
-  localStorage.setItem(PACKS_KEY, JSON.stringify(ids));
+export function saveActivePackIds(certId: string, ids: string[]): void {
+  localStorage.setItem(packsKey(certId), JSON.stringify(ids));
 }
 
 /** How many questions in a pack has the user seen (attempted ≥ 1 time). */

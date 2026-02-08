@@ -7,15 +7,15 @@ import {
   BookOpen,
   TrendingUp,
 } from 'lucide-react';
-import { DOMAINS, EXAM_CONFIG } from '../data/domains';
-import { loadProgress, clearAllProgress, loadActivePackIds } from '../utils/storage';
-import { getActiveQuestions } from '../data/questions';
+import { useCertification } from '../context/CertificationContext';
+import { loadProgress, clearAllProgress } from '../utils/storage';
 import { formatTime } from '../utils/quiz';
 import { useState } from 'react';
 
 export default function ProgressPage() {
   const navigate = useNavigate();
-  const [progress, setProgress] = useState(loadProgress);
+  const { certId, domains, examConfig, activeQuestions } = useCertification();
+  const [progress, setProgress] = useState(() => loadProgress(certId));
   const results = progress.results;
 
   const domainColorMap: Record<number, string> = {
@@ -45,8 +45,8 @@ export default function ProgressPage() {
 
   function handleClear() {
     if (window.confirm('Are you sure you want to clear all progress? This cannot be undone.')) {
-      clearAllProgress();
-      setProgress(loadProgress());
+      clearAllProgress(certId);
+      setProgress(loadProgress(certId));
     }
   }
 
@@ -105,7 +105,7 @@ export default function ProgressPage() {
         </div>
         <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
           <div className="text-2xl font-bold text-aws-squid-ink">
-            {Object.keys(progress.questionsAttempted).length} / {getActiveQuestions(loadActivePackIds()).length}
+            {Object.keys(progress.questionsAttempted).length} / {activeQuestions.length}
           </div>
           <div className="text-xs text-gray-500">Questions Seen</div>
         </div>
@@ -128,7 +128,7 @@ export default function ProgressPage() {
           Domain Performance
         </h3>
         <div className="space-y-3">
-          {DOMAINS.map((d) => {
+          {domains.map((d) => {
             const stats = domainStats[d.id];
             const pct = stats && stats.total > 0
               ? Math.round((stats.correct / stats.total) * 100)
@@ -149,7 +149,7 @@ export default function ProgressPage() {
                   {pct !== null && (
                     <div
                       className={`h-2 rounded-full transition-all ${
-                        pct >= EXAM_CONFIG.passingScore ? 'bg-correct' : 'bg-incorrect'
+                        pct >= examConfig.passingScore ? 'bg-correct' : 'bg-incorrect'
                       }`}
                       style={{ width: `${pct}%` }}
                     />
@@ -167,14 +167,14 @@ export default function ProgressPage() {
         <div className="space-y-2">
           {[...results].reverse().slice(0, 20).map((r) => {
             const date = new Date(r.date);
-            const domainInfo = r.domain ? DOMAINS.find((d) => d.id === r.domain) : null;
+            const domainInfo = r.domain ? domains.find((d) => d.id === r.domain) : null;
             return (
               <div
                 key={r.id}
                 className="flex items-center justify-between p-3 rounded-lg bg-gray-50"
               >
                 <div className="flex items-center gap-3">
-                  {r.score >= EXAM_CONFIG.passingScore ? (
+                  {r.score >= examConfig.passingScore ? (
                     <Trophy className="text-correct" size={16} />
                   ) : (
                     <XCircle className="text-incorrect" size={16} />
@@ -191,7 +191,7 @@ export default function ProgressPage() {
                 <div className="text-right">
                   <span
                     className={`text-sm font-bold ${
-                      r.score >= EXAM_CONFIG.passingScore ? 'text-correct' : 'text-incorrect'
+                      r.score >= examConfig.passingScore ? 'text-correct' : 'text-incorrect'
                     }`}
                   >
                     {r.score}%

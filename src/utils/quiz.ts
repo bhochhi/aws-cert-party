@@ -1,5 +1,4 @@
-import type { Domain, Question, QuizResult } from '../types';
-import { EXAM_CONFIG } from '../data/domains';
+import type { ExamConfig, Question, QuizResult } from '../types';
 
 export function shuffleArray<T>(array: T[]): T[] {
   const arr = [...array];
@@ -12,7 +11,7 @@ export function shuffleArray<T>(array: T[]): T[] {
 
 export function getStudyQuestions(
   allQuestions: Question[],
-  domain: Domain,
+  domain: number,
   count?: number
 ): Question[] {
   const domainQs = allQuestions.filter((q) => q.domain === domain);
@@ -20,9 +19,12 @@ export function getStudyQuestions(
   return count ? shuffled.slice(0, count) : shuffled;
 }
 
-export function getMockTestQuestions(allQuestions: Question[]): Question[] {
+export function getMockTestQuestions(
+  allQuestions: Question[],
+  examConfig: ExamConfig,
+): Question[] {
   const selected: Question[] = [];
-  const weights = EXAM_CONFIG.domainWeights;
+  const weights = examConfig.domainWeights;
 
   for (const [domain, count] of Object.entries(weights)) {
     const domainQs = allQuestions.filter((q) => q.domain === Number(domain));
@@ -45,7 +47,8 @@ export function calculateResult(
   answers: Record<string, number[]>,
   mode: 'study' | 'mock',
   startTime: number,
-  domain?: Domain
+  domain?: number,
+  certId?: string,
 ): QuizResult {
   let correctCount = 0;
   const domainBreakdown: Record<number, { total: number; correct: number }> = {};
@@ -76,6 +79,7 @@ export function calculateResult(
     date: Date.now(),
     mode,
     domain,
+    certId,
     totalQuestions: questions.length,
     correctCount,
     score: Math.round((correctCount / questions.length) * 100),

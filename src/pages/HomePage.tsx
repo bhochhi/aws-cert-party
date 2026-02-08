@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom';
 import { BookOpen, GraduationCap, BarChart3, Target } from 'lucide-react';
-import { DOMAINS, EXAM_CONFIG } from '../data/domains';
-import { allQuestions, getActiveQuestions } from '../data/questions';
-import { loadProgress, loadActivePackIds } from '../utils/storage';
+import { useCertification } from '../context/CertificationContext';
+import { loadProgress } from '../utils/storage';
 
 export default function HomePage() {
-  const progress = loadProgress();
-  const activePackIds = loadActivePackIds();
-  const activeQuestions = getActiveQuestions(activePackIds);
+  const { cert, certId, domains, examConfig, allQuestions, activeQuestions } = useCertification();
+  const progress = loadProgress(certId);
   const totalAttempted = Object.keys(progress.questionsAttempted).length;
   const totalQuestions = activeQuestions.length;
   const lastResult = progress.results.length > 0
@@ -27,11 +25,11 @@ export default function HomePage() {
       {/* Hero */}
       <div className="text-center py-8">
         <h1 className="text-4xl font-bold text-aws-squid-ink mb-2">
-          AWS Certified AI Practitioner
+          {cert.name}
         </h1>
-        <p className="text-lg text-gray-500 mb-1">AIF-C01 Exam Preparation</p>
+        <p className="text-lg text-gray-500 mb-1">{cert.code} Exam Preparation</p>
         <p className="text-sm text-gray-400">
-          {totalQuestions} active questions across {DOMAINS.length} domains
+          {totalQuestions} active questions across {domains.length} domains
           {totalQuestions < allQuestions.length && (
             <span className="text-xs text-gray-400"> ({allQuestions.length} total)</span>
           )}
@@ -90,7 +88,7 @@ export default function HomePage() {
           <div>
             <h3 className="text-lg font-semibold text-aws-squid-ink">Mock Test</h3>
             <p className="text-sm text-gray-500">
-              {EXAM_CONFIG.totalQuestions} questions, {EXAM_CONFIG.timeLimit / 60000} min timer — simulate the real exam
+              {examConfig.totalQuestions} questions, {examConfig.timeLimit / 60000} min timer — simulate the real exam
             </p>
           </div>
         </Link>
@@ -100,7 +98,7 @@ export default function HomePage() {
       <div>
         <h2 className="text-xl font-bold text-aws-squid-ink mb-4">Exam Domains</h2>
         <div className="space-y-3">
-          {DOMAINS.map((domain) => {
+          {domains.map((domain) => {
             const domainQs = activeQuestions.filter((q) => q.domain === domain.id);
             return (
               <div
@@ -140,9 +138,9 @@ export default function HomePage() {
       {/* Passing info */}
       <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
         <p className="text-sm text-amber-800">
-          <strong>Passing score:</strong> {EXAM_CONFIG.passingScore}% — 
-          You need to answer at least {Math.ceil(EXAM_CONFIG.totalQuestions * EXAM_CONFIG.passingScore / 100)} out of {EXAM_CONFIG.totalQuestions} questions correctly.
-          The exam duration is {EXAM_CONFIG.timeLimit / 60000} minutes.
+          <strong>Passing score:</strong> {examConfig.passingScore}% — 
+          You need to answer at least {Math.ceil(examConfig.totalQuestions * examConfig.passingScore / 100)} out of {examConfig.totalQuestions} questions correctly.
+          The exam duration is {examConfig.timeLimit / 60000} minutes.
         </p>
       </div>
     </div>

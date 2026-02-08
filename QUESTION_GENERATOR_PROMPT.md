@@ -164,13 +164,13 @@ The AI will generate the `"name"` and `"description"` fields automatically based
 Save the AI's JSON output directly as a file in the appropriate domain folder:
 
 ```
-src/data/questions/domain{N}/{descriptive-name}.json
+src/data/certifications/{cert-id}/questions/domain{N}/{descriptive-name}.json
 ```
 
 For example:
-- `src/data/questions/domain3/advanced-rag-patterns.json`
-- `src/data/questions/domain1/ml-pipeline-deep-dive.json`
-- `src/data/questions/domain5/advanced-iam-scenarios.json`
+- `src/data/certifications/aif-c01/questions/domain3/advanced-rag-patterns.json`
+- `src/data/certifications/aif-c01/questions/domain1/ml-pipeline-deep-dive.json`
+- `src/data/certifications/aif-c01/questions/domain5/advanced-iam-scenarios.json`
 
 The app auto-discovers all `.json` files in domain folders — no code changes needed!
 

@@ -1,6 +1,8 @@
+/* ── Core question types ─────────────────────────── */
+
 export interface Question {
   id: string;
-  domain: Domain;
+  domain: number;
   question: string;
   options: string[];
   correctAnswers: number[]; // indices — supports multi-select
@@ -9,22 +11,18 @@ export interface Question {
   packId?: string; // injected by loader — which pack this question belongs to
 }
 
-export type Domain = 1 | 2 | 3 | 4 | 5;
-
 export interface QuestionPack {
-  id: string; // derived from file path, e.g. "domain1/core-fundamentals"
-  name: string; // display name
-  domain: Domain;
+  id: string; // e.g. "domain1/core-fundamentals"
+  name: string;
+  domain: number;
   description?: string;
   questions: Question[];
 }
 
-export interface QuestionPackSelection {
-  activePackIds: string[]; // which packs are enabled
-}
+/* ── Certification types ─────────────────────────── */
 
 export interface DomainInfo {
-  id: Domain;
+  id: number;
   title: string;
   subtitle: string;
   percentage: number;
@@ -32,6 +30,26 @@ export interface DomainInfo {
   icon: string;
   topics: string[];
 }
+
+export interface ExamConfig {
+  totalQuestions: number;
+  timeLimit: number; // ms
+  passingScore: number; // percentage
+  domainWeights: Record<number, number>;
+}
+
+export interface CertificationConfig {
+  id: string;          // e.g. "aif-c01"
+  name: string;        // e.g. "AWS Certified AI Practitioner"
+  code: string;        // e.g. "AIF-C01"
+  description: string;
+  icon: string;        // emoji
+  color: string;       // tailwind color class stem, e.g. "aws-orange"
+  domains: DomainInfo[];
+  examConfig: ExamConfig;
+}
+
+/* ── Quiz / progress types ───────────────────────── */
 
 export interface QuizState {
   questions: Question[];
@@ -46,7 +64,8 @@ export interface QuizResult {
   id: string;
   date: number;
   mode: 'study' | 'mock';
-  domain?: Domain;
+  domain?: number;
+  certId?: string; // which certification this result belongs to
   totalQuestions: number;
   correctCount: number;
   score: number; // percentage

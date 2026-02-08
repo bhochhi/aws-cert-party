@@ -1,9 +1,7 @@
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
-import type { Domain } from '../types';
-import { getActiveQuestions } from '../data/questions';
-import { DOMAINS } from '../data/domains';
+import { useCertification } from '../context/CertificationContext';
 import { getStudyQuestions, calculateResult } from '../utils/quiz';
-import { addResult, recordAttempt, loadActivePackIds } from '../utils/storage';
+import { addResult, recordAttempt } from '../utils/storage';
 import QuizEngine from '../components/QuizEngine';
 import ResultsView from '../components/ResultsView';
 import { useState } from 'react';
@@ -14,10 +12,11 @@ export default function StudyPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [result, setResult] = useState<QuizResult | null>(null);
+  const { certId, domains, activeQuestions } = useCertification();
 
-  const domainNum = Number(domain) as Domain;
+  const domainNum = Number(domain);
   const count = Number(searchParams.get('count')) || 10;
-  const domainInfo = DOMAINS.find((d) => d.id === domainNum);
+  const domainInfo = domains.find((d) => d.id === domainNum);
 
   if (!domainInfo) {
     return (
@@ -33,13 +32,12 @@ export default function StudyPage() {
     );
   }
 
-  const activeQuestions = getActiveQuestions(loadActivePackIds());
   const [questions] = useState(() => getStudyQuestions(activeQuestions, domainNum, count));
 
   function handleComplete(answers: Record<string, number[]>, timeTaken: number) {
-    const quizResult = calculateResult(questions, answers, 'study', Date.now() - timeTaken, domainNum);
-    addResult(quizResult);
-    questions.forEach((q) => recordAttempt(q.id));
+    const quizResult = calculateResult(questions, answers, 'study', Date.now() - timeTaken, domainNum, certId);
+    addResult(certId, quizResult);
+    questions.forEach((q) => recordAttempt(certId, q.id));
     setResult(quizResult);
   }
 
