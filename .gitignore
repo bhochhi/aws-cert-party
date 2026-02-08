@@ -1,3 +1,3 @@
-# Virtual environments (default `.env` per setup) and dotenv files
+# Virtual environments (default `.env` per setup) and local dotenv secrets (keep shared examples like .env.example separately)
 .env
 .venv
