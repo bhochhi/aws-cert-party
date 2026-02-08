@@ -1,2 +1,5 @@
+# Virtual environments (default `.env` per setup) and dotenv files
 .env
+.env/
 .venv
+.venv/
