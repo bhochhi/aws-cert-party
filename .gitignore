@@ -1,3 +1,4 @@
-# Virtual environments (default `.env` per setup) and local dotenv secrets (keep shared examples like .env.example separately)
+# Virtual environments (default `.env` per setup) and local dotenv secrets
 .env
 .venv
+!.env.example
