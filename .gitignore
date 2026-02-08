@@ -1,3 +1,5 @@
-# Virtual environments (recommended `.venv`; `.env` also supported per README) and dotenv secrets
-.env
+# Virtual environments (recommended `.venv`; `.env` also supported per README)
 .venv
+
+# Local dotenv secrets
+.env
