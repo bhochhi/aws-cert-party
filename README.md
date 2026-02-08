@@ -10,7 +10,7 @@ An interactive Streamlit app that helps you practice AWS Certified AI Practition
    source .venv/bin/activate
    python -m pip install -r requirements.txt
    ```
-   If you prefer to name the environment `.env`, replace `.venv` in the commands above (e.g., `source .env/bin/activate`).
+   If you prefer to name the environment `.env`, replace `.venv` in the commands above (e.g., `source .env/bin/activate`), but note this conflicts with the common dotenv file naming convention—prefer `.venv` when possible.
    On Windows (PowerShell):
    ```powershell
    python -m venv .venv
