@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { CertificationProvider } from './context/CertificationContext';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
@@ -11,7 +11,7 @@ import CertificationsPage from './pages/CertificationsPage';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <CertificationProvider>
         <Layout>
           <Routes>
@@ -25,6 +25,6 @@ export default function App() {
           </Routes>
         </Layout>
       </CertificationProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
