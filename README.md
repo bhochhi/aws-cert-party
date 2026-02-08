@@ -4,7 +4,7 @@ An interactive Streamlit app that helps you practice AWS Certified AI Practition
 
 ### Run locally
 1. Ensure you have Python 3.10+ installed.
-2. Create and activate a virtual environment (recommended `.venv`; `.env` also works), then install dependencies.
+2. Create and activate a virtual environment (recommended `.venv`; `.env` also works). `.env` conflicts with the common dotenv file naming convention, so prefer `.venv` when possible. Then install dependencies.
    ```bash
    python -m venv .venv
    source .venv/bin/activate
