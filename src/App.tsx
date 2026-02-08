@@ -5,6 +5,7 @@ import StudySelectPage from './pages/StudySelectPage';
 import StudyPage from './pages/StudyPage';
 import MockTestPage from './pages/MockTestPage';
 import ProgressPage from './pages/ProgressPage';
+import QuestionPacksPage from './pages/QuestionPacksPage';
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/packs" element={<QuestionPacksPage />} />
           <Route path="/study" element={<StudySelectPage />} />
           <Route path="/study/:domain" element={<StudyPage />} />
           <Route path="/mock-test" element={<MockTestPage />} />

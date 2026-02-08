@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
 import { BookOpen, GraduationCap, BarChart3, Target } from 'lucide-react';
 import { DOMAINS, EXAM_CONFIG } from '../data/domains';
-import { allQuestions } from '../data/questions';
-import { loadProgress } from '../utils/storage';
+import { allQuestions, getActiveQuestions } from '../data/questions';
+import { loadProgress, loadActivePackIds } from '../utils/storage';
 
 export default function HomePage() {
   const progress = loadProgress();
+  const activePackIds = loadActivePackIds();
+  const activeQuestions = getActiveQuestions(activePackIds);
   const totalAttempted = Object.keys(progress.questionsAttempted).length;
-  const totalQuestions = allQuestions.length;
+  const totalQuestions = activeQuestions.length;
   const lastResult = progress.results.length > 0
     ? progress.results[progress.results.length - 1]
     : null;
@@ -29,7 +31,10 @@ export default function HomePage() {
         </h1>
         <p className="text-lg text-gray-500 mb-1">AIF-C01 Exam Preparation</p>
         <p className="text-sm text-gray-400">
-          {totalQuestions} practice questions across {DOMAINS.length} domains
+          {totalQuestions} active questions across {DOMAINS.length} domains
+          {totalQuestions < allQuestions.length && (
+            <span className="text-xs text-gray-400"> ({allQuestions.length} total)</span>
+          )}
         </p>
       </div>
 
@@ -96,7 +101,7 @@ export default function HomePage() {
         <h2 className="text-xl font-bold text-aws-squid-ink mb-4">Exam Domains</h2>
         <div className="space-y-3">
           {DOMAINS.map((domain) => {
-            const domainQs = allQuestions.filter((q) => q.domain === domain.id);
+            const domainQs = activeQuestions.filter((q) => q.domain === domain.id);
             return (
               <div
                 key={domain.id}

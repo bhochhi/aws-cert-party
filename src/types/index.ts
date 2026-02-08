@@ -6,9 +6,22 @@ export interface Question {
   correctAnswers: number[]; // indices — supports multi-select
   explanation: string;
   tags?: string[];
+  packId?: string; // injected by loader — which pack this question belongs to
 }
 
 export type Domain = 1 | 2 | 3 | 4 | 5;
+
+export interface QuestionPack {
+  id: string; // derived from file path, e.g. "domain1/core-fundamentals"
+  name: string; // display name
+  domain: Domain;
+  description?: string;
+  questions: Question[];
+}
+
+export interface QuestionPackSelection {
+  activePackIds: string[]; // which packs are enabled
+}
 
 export interface DomainInfo {
   id: Domain;

@@ -2,13 +2,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BookOpen, Play } from 'lucide-react';
 import { DOMAINS } from '../data/domains';
-import { allQuestions } from '../data/questions';
+import { getActiveQuestions } from '../data/questions';
+import { loadActivePackIds } from '../utils/storage';
 import type { Domain } from '../types';
 
 export default function StudySelectPage() {
   const navigate = useNavigate();
   const [selectedDomain, setSelectedDomain] = useState<Domain | null>(null);
   const [questionCount, setQuestionCount] = useState(10);
+  const activeQuestions = getActiveQuestions(loadActivePackIds());
 
   const domainColors: Record<number, string> = {
     1: 'border-domain1 ring-domain1',
@@ -20,7 +22,7 @@ export default function StudySelectPage() {
 
   const selectedDomainInfo = DOMAINS.find((d) => d.id === selectedDomain);
   const availableQuestions = selectedDomain
-    ? allQuestions.filter((q) => q.domain === selectedDomain).length
+    ? activeQuestions.filter((q) => q.domain === selectedDomain).length
     : 0;
 
   function handleStart() {
@@ -41,7 +43,7 @@ export default function StudySelectPage() {
       {/* Domain Cards */}
       <div className="space-y-3">
         {DOMAINS.map((domain) => {
-          const count = allQuestions.filter((q) => q.domain === domain.id).length;
+          const count = activeQuestions.filter((q) => q.domain === domain.id).length;
           const isSelected = selectedDomain === domain.id;
           return (
             <button

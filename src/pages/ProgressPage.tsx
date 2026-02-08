@@ -8,8 +8,8 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import { DOMAINS, EXAM_CONFIG } from '../data/domains';
-import { loadProgress, clearAllProgress } from '../utils/storage';
-import { allQuestions } from '../data/questions';
+import { loadProgress, clearAllProgress, loadActivePackIds } from '../utils/storage';
+import { getActiveQuestions } from '../data/questions';
 import { formatTime } from '../utils/quiz';
 import { useState } from 'react';
 
@@ -105,7 +105,7 @@ export default function ProgressPage() {
         </div>
         <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
           <div className="text-2xl font-bold text-aws-squid-ink">
-            {Object.keys(progress.questionsAttempted).length} / {allQuestions.length}
+            {Object.keys(progress.questionsAttempted).length} / {getActiveQuestions(loadActivePackIds()).length}
           </div>
           <div className="text-xs text-gray-500">Questions Seen</div>
         </div>

@@ -1,6 +1,7 @@
 import type { QuizResult, UserProgress } from '../types';
 
 const STORAGE_KEY = 'aws-cert-party-progress';
+const PACKS_KEY = 'aws-cert-party-active-packs';
 
 export function loadProgress(): UserProgress {
   try {
@@ -49,4 +50,29 @@ export function recordAttempt(questionId: string): void {
 
 export function clearAllProgress(): void {
   localStorage.removeItem(STORAGE_KEY);
+}
+
+/* ── Pack Selection ──────────────────────────────────────────── */
+
+/** Load active pack IDs. Empty array means "all packs active". */
+export function loadActivePackIds(): string[] {
+  try {
+    const raw = localStorage.getItem(PACKS_KEY);
+    if (raw) return JSON.parse(raw) as string[];
+  } catch {
+    // corrupted
+  }
+  return []; // default: all active
+}
+
+export function saveActivePackIds(ids: string[]): void {
+  localStorage.setItem(PACKS_KEY, JSON.stringify(ids));
+}
+
+/** How many questions in a pack has the user seen (attempted ≥ 1 time). */
+export function getPackCompletionCount(
+  packQuestionIds: string[],
+  attempted: Record<string, number>,
+): number {
+  return packQuestionIds.filter((id) => (attempted[id] || 0) > 0).length;
 }

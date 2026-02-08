@@ -1,0 +1,366 @@
+{
+  "name": "Foundation Model Applications",
+  "description": "RAG, Bedrock Knowledge Bases, Agents, Amazon Q, model selection, and cost optimization",
+  "questions": [
+    {
+      "id": "d3-001",
+      "domain": 3,
+      "question": "Which AWS service provides a managed knowledge base for RAG that automatically ingests, chunks, and embeds documents?",
+      "options": ["Amazon Kendra", "Amazon Bedrock Knowledge Bases", "Amazon OpenSearch", "Amazon DynamoDB"],
+      "correctAnswers": [1],
+      "explanation": "Amazon Bedrock Knowledge Bases provides a fully managed RAG solution that automatically ingests documents from data sources (like S3), splits them into chunks, generates embeddings, and stores them in a vector database. At query time, it retrieves relevant chunks and provides them as context to the foundation model.",
+      "tags": ["bedrock", "knowledge-bases", "rag"]
+    },
+    {
+      "id": "d3-002",
+      "domain": 3,
+      "question": "What is Amazon Bedrock Agents designed to do?",
+      "options": ["Monitor model performance metrics", "Enable foundation models to execute multi-step tasks by connecting to company data and APIs", "Provide a chat interface for end users", "Manage IAM permissions for Bedrock models"],
+      "correctAnswers": [1],
+      "explanation": "Amazon Bedrock Agents enables foundation models to plan and execute multi-step tasks by breaking down user requests, calling APIs and data sources, and orchestrating workflows. Agents can access knowledge bases, invoke Lambda functions, and maintain conversational context.",
+      "tags": ["bedrock", "agents"]
+    },
+    {
+      "id": "d3-003",
+      "domain": 3,
+      "question": "Amazon Q Business is BEST described as:",
+      "options": ["A code completion tool for developers", "A fully managed generative AI assistant for employees that can answer questions using enterprise data", "A customer-facing chatbot service", "A data warehouse query engine"],
+      "correctAnswers": [1],
+      "explanation": "Amazon Q Business is a fully managed generative AI-powered assistant designed for enterprise use. It connects to company data sources (S3, SharePoint, Confluence, Salesforce, etc.) and provides employees with accurate answers, summaries, and content generation based on internal knowledge.",
+      "tags": ["amazon-q", "enterprise"]
+    },
+    {
+      "id": "d3-004",
+      "domain": 3,
+      "question": "When selecting a foundation model for a specific use case, which factors should be considered? (Select TWO)",
+      "options": ["The physical location of the model provider's headquarters", "The model's performance on the specific task vs. its cost and latency", "The model's context window size relative to the expected input/output lengths", "The color scheme of the model provider's website", "The number of employees at the model provider"],
+      "correctAnswers": [1, 2],
+      "explanation": "Key model selection criteria include: (1) task performance — does the model handle your specific use case well? (2) context window — is it large enough for your data? Other important factors include cost per token, latency requirements, supported languages, and compliance certifications.",
+      "tags": ["model-selection", "best-practices"]
+    },
+    {
+      "id": "d3-005",
+      "domain": 3,
+      "question": "What is \"prompt chaining\"?",
+      "options": ["Sending multiple prompts simultaneously to different models", "Breaking a complex task into multiple sequential prompts where the output of one becomes the input for the next", "Linking multiple user accounts to the same model", "Repeating the same prompt multiple times for consistency"],
+      "correctAnswers": [1],
+      "explanation": "Prompt chaining decomposes a complex task into a series of simpler prompts, where each step's output feeds into the next step's input. For example: (1) Extract key topics from a document → (2) Research each topic → (3) Write a summary. This improves accuracy and controllability.",
+      "tags": ["prompt-engineering", "prompt-chaining"]
+    },
+    {
+      "id": "d3-006",
+      "domain": 3,
+      "question": "Amazon Q Developer is primarily designed for which users?",
+      "options": ["Business analysts", "Software developers — providing code suggestions, explanations, and transformation capabilities", "Data entry clerks", "Network administrators"],
+      "correctAnswers": [1],
+      "explanation": "Amazon Q Developer is a generative AI-powered assistant designed for software developers. It provides code suggestions, code explanations, bug fixing, code transformation (e.g., Java 8 to Java 17), and can generate tests, documentation, and help with AWS service integration.",
+      "tags": ["amazon-q", "developer"]
+    },
+    {
+      "id": "d3-007",
+      "domain": 3,
+      "question": "What is the key benefit of using a managed vector database (like Amazon OpenSearch Serverless) for RAG over building your own?",
+      "options": ["Managed vector databases are always free", "They handle scaling, indexing, and similarity search optimization without operational overhead", "They provide better model training capabilities", "They automatically generate embeddings without an embedding model"],
+      "correctAnswers": [1],
+      "explanation": "Managed vector databases handle the complexity of scaling, indexing, and optimizing similarity searches (k-NN), reducing operational burden. Services like Amazon OpenSearch Serverless with vector engine support automatic scaling, built-in security, and integration with other AWS services.",
+      "tags": ["vector-database", "infrastructure"]
+    },
+    {
+      "id": "d3-008",
+      "domain": 3,
+      "question": "What is the primary purpose of \"chunking\" in a RAG pipeline?",
+      "options": ["To compress documents for storage", "To split large documents into smaller, semantically meaningful segments for effective embedding and retrieval", "To encrypt documents for security", "To merge multiple documents into one"],
+      "correctAnswers": [1],
+      "explanation": "Chunking splits large documents into smaller pieces that can be individually embedded and retrieved. Good chunking strategies (fixed-size, semantic, recursive) ensure each chunk contains a coherent unit of information. Chunk size affects retrieval quality — too large loses specificity, too small loses context.",
+      "tags": ["rag", "chunking"]
+    },
+    {
+      "id": "d3-009",
+      "domain": 3,
+      "question": "A company wants to build a customer support chatbot that can look up order status, process returns, and answer policy questions. Which AWS service is MOST appropriate?",
+      "options": ["Amazon Lex alone", "Amazon Bedrock Agents with Knowledge Bases", "Amazon Comprehend", "Amazon Polly"],
+      "correctAnswers": [1],
+      "explanation": "Amazon Bedrock Agents with Knowledge Bases is ideal because it combines: (1) LLM reasoning to understand customer intent, (2) Knowledge Bases for policy/FAQ questions using RAG, and (3) Agent actions (Lambda functions) to look up orders and process returns from backend systems.",
+      "tags": ["bedrock", "agents", "use-case"]
+    },
+    {
+      "id": "d3-010",
+      "domain": 3,
+      "question": "What is a \"prompt template\"?",
+      "options": ["A pre-designed UI component for chat interfaces", "A reusable prompt structure with placeholders for variable content that can be filled in dynamically", "A template for training data format", "An AWS CloudFormation template for deploying models"],
+      "correctAnswers": [1],
+      "explanation": "A prompt template is a pre-defined prompt structure with variable placeholders (e.g., {context}, {question}) that are filled in dynamically at runtime. Templates ensure consistency, enable reuse, and make it easy to construct prompts programmatically in applications.",
+      "tags": ["prompt-engineering", "prompt-templates"]
+    },
+    {
+      "id": "d3-011",
+      "domain": 3,
+      "question": "Which approach should be tried FIRST when adapting a foundation model to a new domain?",
+      "options": ["Training a new model from scratch", "Prompt engineering and RAG", "Fine-tuning with millions of examples", "Changing the model architecture"],
+      "correctAnswers": [1],
+      "explanation": "Prompt engineering and RAG should be tried first because they require no model modification, are fastest to implement, and are often sufficient. The recommended progression is: (1) prompt engineering → (2) RAG → (3) fine-tuning → (4) continued pre-training → (5) training from scratch.",
+      "tags": ["best-practices", "adaptation"]
+    },
+    {
+      "id": "d3-012",
+      "domain": 3,
+      "question": "What is an \"AI agent\" in the context of foundation models?",
+      "options": ["A human employee who works with AI", "A system where a foundation model can reason, plan, and take actions by using tools and APIs to accomplish tasks", "An antivirus program for AI systems", "A customer service representative"],
+      "correctAnswers": [1],
+      "explanation": "An AI agent is a system built around a foundation model that can reason about tasks, create plans, and execute actions by calling external tools and APIs. The model acts as the \"brain,\" deciding what steps to take, what tools to use, and when the task is complete.",
+      "tags": ["agents", "concepts"]
+    },
+    {
+      "id": "d3-013",
+      "domain": 3,
+      "question": "How does Amazon Bedrock charge for foundation model usage in on-demand mode?",
+      "options": ["A flat monthly subscription fee", "Based on the number of input and output tokens processed", "Based on the number of API calls only", "Based on compute time in hours"],
+      "correctAnswers": [1],
+      "explanation": "Amazon Bedrock on-demand pricing charges based on the number of input tokens (the prompt) and output tokens (the generated response) processed. Different models have different per-token prices. This pay-per-use model is cost-effective for variable workloads.",
+      "tags": ["bedrock", "pricing"]
+    },
+    {
+      "id": "d3-014",
+      "domain": 3,
+      "question": "What is the benefit of using \"streaming\" responses from a foundation model?",
+      "options": ["It reduces the total cost of inference", "It improves the perceived latency by returning tokens as they are generated, rather than waiting for the complete response", "It increases model accuracy", "It enables real-time model training"],
+      "correctAnswers": [1],
+      "explanation": "Streaming sends generated tokens to the client as they are produced, rather than waiting for the entire response to complete. This significantly reduces perceived latency — users see the response building in real-time, similar to watching someone type. The total generation time is the same.",
+      "tags": ["performance", "streaming"]
+    },
+    {
+      "id": "d3-015",
+      "domain": 3,
+      "question": "A legal firm needs an AI system that can answer questions about their proprietary case law database and always cite the source documents. Which approach is BEST?",
+      "options": ["Fine-tuning a model on all their case law", "Using RAG with their case law documents as the knowledge base", "Using a general-purpose chatbot", "Training a model from scratch on legal data"],
+      "correctAnswers": [1],
+      "explanation": "RAG is ideal here because: (1) it retrieves and cites specific source documents, (2) the knowledge base can be updated as new cases are added without retraining, (3) responses are grounded in actual documents, reducing hallucination, and (4) it provides attribution/traceability required in legal contexts.",
+      "tags": ["rag", "use-case"]
+    },
+    {
+      "id": "d3-016",
+      "domain": 3,
+      "question": "What is the purpose of \"guardrails\" in Amazon Bedrock?",
+      "options": ["To improve model training speed", "To implement safeguards that filter harmful content, enforce topic boundaries, and redact sensitive information", "To manage billing and cost allocation", "To version control model deployments"],
+      "correctAnswers": [1],
+      "explanation": "Amazon Bedrock Guardrails enables you to implement application-specific safeguards including: content filters (blocking harmful/inappropriate content), denied topics, word filters, sensitive information filters (PII redaction), and contextual grounding checks to ensure responsible AI use.",
+      "tags": ["bedrock", "guardrails"]
+    },
+    {
+      "id": "d3-017",
+      "domain": 3,
+      "question": "What is \"model evaluation\" in Amazon Bedrock?",
+      "options": ["Monitoring model costs", "A feature that lets you compare and evaluate foundation model outputs using automatic metrics or human reviewers", "Testing network connectivity to model endpoints", "Checking model compliance certifications"],
+      "correctAnswers": [1],
+      "explanation": "Amazon Bedrock Model Evaluation allows you to evaluate and compare foundation model outputs using automatic metrics (like accuracy, robustness, toxicity) or human evaluation. This helps select the best model for your use case by assessing quality, safety, and performance.",
+      "tags": ["bedrock", "evaluation"]
+    },
+    {
+      "id": "d3-018",
+      "domain": 3,
+      "question": "When would you choose a smaller foundation model over a larger one?",
+      "options": ["Never — larger models are always better", "When low latency, lower cost, and the task is well-defined and doesn't require broad reasoning", "Only when no larger model is available", "When you need the highest possible accuracy on complex tasks"],
+      "correctAnswers": [1],
+      "explanation": "Smaller models are preferred when: (1) low latency is critical, (2) cost is a major concern, (3) the task is well-defined and specific (e.g., classification, extraction), and (4) the task doesn't require broad world knowledge or complex reasoning. Right-sizing the model optimizes the cost-performance trade-off.",
+      "tags": ["model-selection", "optimization"]
+    },
+    {
+      "id": "d3-019",
+      "domain": 3,
+      "question": "What is the role of a Lambda function in an Amazon Bedrock Agent?",
+      "options": ["To train the foundation model", "To execute business logic actions (like querying databases or calling APIs) that the agent decides to invoke", "To host the foundation model", "To store conversation history"],
+      "correctAnswers": [1],
+      "explanation": "In Bedrock Agents, Lambda functions serve as \"action groups\" — they execute specific business operations that the agent determines are needed. The agent uses the foundation model to understand the user request, plan steps, and decide which Lambda functions to call to fulfill the request.",
+      "tags": ["bedrock", "agents", "lambda"]
+    },
+    {
+      "id": "d3-020",
+      "domain": 3,
+      "question": "What is \"contextual grounding\" in Amazon Bedrock Guardrails?",
+      "options": ["Physically grounding the server hardware", "A check that verifies model responses are factually grounded in the provided source/context and relevant to the user query", "Setting the geographic location for model deployment", "Connecting the model to the internet for real-time data"],
+      "correctAnswers": [1],
+      "explanation": "Contextual grounding checks in Amazon Bedrock Guardrails verify that model responses are: (1) grounded — factually supported by the reference information or retrieved documents, and (2) relevant — actually addressing the user's query. This helps detect and filter hallucinated content.",
+      "tags": ["bedrock", "guardrails", "grounding"]
+    },
+    {
+      "id": "d3-021",
+      "domain": 3,
+      "question": "A company wants to allow non-technical employees to ask questions about HR policies using natural language. Which solution requires the LEAST development effort?",
+      "options": ["Build a custom RAG pipeline with SageMaker", "Deploy Amazon Q Business connected to the HR document repository", "Build a custom chatbot with Amazon Lex", "Fine-tune a model on HR documents using Bedrock"],
+      "correctAnswers": [1],
+      "explanation": "Amazon Q Business requires the least development effort — it's a fully managed service that connects to enterprise data sources (like document repositories) and provides a ready-to-use natural language interface. It handles document ingestion, indexing, retrieval, and response generation automatically.",
+      "tags": ["amazon-q", "use-case"]
+    },
+    {
+      "id": "d3-022",
+      "domain": 3,
+      "question": "What is \"model invocation logging\" in Amazon Bedrock?",
+      "options": ["Logging the training process of models", "Recording input prompts, output responses, and metadata for model API calls for auditing and debugging", "Logging user login events", "Recording model download events"],
+      "correctAnswers": [1],
+      "explanation": "Model invocation logging in Amazon Bedrock records the full request and response data (prompts, completions, metadata) for model API calls. Logs can be sent to S3 and CloudWatch for auditing, debugging, compliance, and analyzing model usage patterns.",
+      "tags": ["bedrock", "logging", "governance"]
+    },
+    {
+      "id": "d3-023",
+      "domain": 3,
+      "question": "What determines the optimal \"chunk size\" when preparing documents for RAG?",
+      "options": ["Always use the largest possible chunks", "It depends on the content type, model context window, and retrieval precision needs — smaller chunks for precise retrieval, larger for more context", "Always use exactly 100 tokens per chunk", "Chunk size doesn't affect RAG quality"],
+      "correctAnswers": [1],
+      "explanation": "Optimal chunk size depends on multiple factors: smaller chunks (128-256 tokens) provide more precise retrieval but may lack context; larger chunks (512-1024 tokens) provide more context but may include irrelevant information. The best size depends on document structure, question types, and the model's context window.",
+      "tags": ["rag", "chunking", "optimization"]
+    },
+    {
+      "id": "d3-024",
+      "domain": 3,
+      "question": "Which of the following is a valid use case for multi-modal foundation models?",
+      "options": ["Only generating text from text prompts", "Analyzing images and generating text descriptions, or generating images from text prompts", "Only performing numerical calculations", "Only converting between file formats"],
+      "correctAnswers": [1],
+      "explanation": "Multi-modal models can work across data types: analyzing images and describing them in text (vision-language), generating images from text descriptions (text-to-image), understanding charts/diagrams, answering questions about images, and even processing audio or video in some cases.",
+      "tags": ["multi-modal", "use-cases"]
+    },
+    {
+      "id": "d3-025",
+      "domain": 3,
+      "question": "What is the key advantage of Amazon Bedrock's \"Converse API\"?",
+      "options": ["It's the only way to call models in Bedrock", "It provides a unified, model-agnostic API for multi-turn conversations across different foundation models", "It enables voice conversations with models", "It provides free model access"],
+      "correctAnswers": [1],
+      "explanation": "The Converse API provides a consistent, model-agnostic interface for conducting multi-turn conversations with any foundation model in Bedrock. This means you can switch between models (e.g., Claude, Titan, Llama) without changing your application code, simplifying development and model comparison.",
+      "tags": ["bedrock", "converse-api"]
+    },
+    {
+      "id": "d3-026",
+      "domain": 3,
+      "question": "A healthcare company needs to summarize long medical research papers. What should they consider when choosing a foundation model?",
+      "options": ["The model's image generation capabilities", "A model with a large context window to handle long documents and strong summarization performance", "The model's ability to generate code", "The lowest cost model available"],
+      "correctAnswers": [1],
+      "explanation": "For summarizing long documents, the key considerations are: (1) a large enough context window to ingest the full paper (some papers exceed 10K tokens), (2) strong summarization capabilities, (3) accuracy in technical/medical language, and (4) appropriate compliance certifications for healthcare data.",
+      "tags": ["model-selection", "use-case"]
+    },
+    {
+      "id": "d3-027",
+      "domain": 3,
+      "question": "What is \"retrieval score\" in a RAG system?",
+      "options": ["The grade given to a student during retrieval practice", "A similarity metric that measures how relevant a retrieved document chunk is to the user's query", "The speed of the retrieval process", "The total number of documents in the knowledge base"],
+      "correctAnswers": [1],
+      "explanation": "The retrieval score (or similarity score) measures how semantically similar a retrieved document chunk is to the user's query. Higher scores indicate more relevant results. Setting a minimum threshold helps filter out irrelevant chunks and improves response quality.",
+      "tags": ["rag", "retrieval"]
+    },
+    {
+      "id": "d3-028",
+      "domain": 3,
+      "question": "What is the difference between Amazon Q Business and Amazon Q Developer?",
+      "options": ["They are the same service", "Q Business is for enterprise employees to query internal data; Q Developer is for software developers to write and transform code", "Q Business is free; Q Developer is paid", "Q Business uses ML; Q Developer uses rules"],
+      "correctAnswers": [1],
+      "explanation": "Amazon Q Business is designed for all employees to interact with enterprise data through natural language. Amazon Q Developer is specifically designed for software developers, providing code generation, code explanations, debugging help, code transformation, and AWS service integration guidance.",
+      "tags": ["amazon-q", "comparison"]
+    },
+    {
+      "id": "d3-029",
+      "domain": 3,
+      "question": "When building a RAG application, what happens if the knowledge base doesn't contain information relevant to the user's question?",
+      "options": ["The model will always generate an accurate answer anyway", "The model should indicate that it cannot find relevant information, ideally through guardrails or prompt instructions", "The application will crash", "The model will automatically search the internet"],
+      "correctAnswers": [1],
+      "explanation": "When no relevant context is retrieved, a well-designed RAG system should handle this gracefully. This can be achieved through: (1) system prompt instructions telling the model to say \"I don't have information about that,\" (2) retrieval score thresholds, and (3) Bedrock Guardrails contextual grounding checks.",
+      "tags": ["rag", "best-practices"]
+    },
+    {
+      "id": "d3-030",
+      "domain": 3,
+      "question": "What is the recommended way to optimize costs when using foundation models in production?",
+      "options": ["Always use the largest model available", "Right-size the model, optimize prompts to reduce token usage, use caching, and consider Provisioned Throughput for predictable workloads", "Use only on-demand pricing regardless of volume", "Avoid using guardrails to reduce processing"],
+      "correctAnswers": [1],
+      "explanation": "Cost optimization strategies include: (1) right-sizing — use the smallest model that meets quality requirements, (2) prompt optimization — reduce unnecessary tokens, (3) caching frequent responses, (4) Provisioned Throughput for predictable workloads, (5) batch processing when real-time isn't needed.",
+      "tags": ["optimization", "cost"]
+    },
+    {
+      "id": "d3-031",
+      "domain": 3,
+      "question": "What is an \"action group\" in Amazon Bedrock Agents?",
+      "options": ["A security group for network access", "A defined set of actions (backed by Lambda functions or API schemas) that an agent can invoke to fulfill user requests", "A group of IAM users", "A collection of training datasets"],
+      "correctAnswers": [1],
+      "explanation": "An action group in Bedrock Agents defines a set of operations the agent can perform, typically backed by Lambda functions or OpenAPI schemas. Each action group has a description that helps the agent decide when to use it. For example, an \"OrderManagement\" action group might include \"getOrderStatus\" and \"createReturn\" actions.",
+      "tags": ["bedrock", "agents", "action-groups"]
+    },
+    {
+      "id": "d3-032",
+      "domain": 3,
+      "question": "What data sources can Amazon Bedrock Knowledge Bases connect to?",
+      "options": ["Only Amazon S3", "Amazon S3, web crawlers, Confluence, SharePoint, Salesforce, and other supported connectors", "Only relational databases", "Only real-time streaming data"],
+      "correctAnswers": [1],
+      "explanation": "Amazon Bedrock Knowledge Bases supports multiple data source connectors including Amazon S3, web crawlers, Confluence, SharePoint, Salesforce, and other enterprise data sources. The service automatically ingests, processes, and indexes content from these sources for RAG.",
+      "tags": ["bedrock", "knowledge-bases", "data-sources"]
+    },
+    {
+      "id": "d3-033",
+      "domain": 3,
+      "question": "What is \"model caching\" and why is it useful?",
+      "options": ["Storing model weights in memory for faster loading", "Caching responses for identical or similar prompts to reduce latency and costs for repeated queries", "Caching training data on local disk", "Pre-loading models into GPU memory"],
+      "correctAnswers": [1],
+      "explanation": "Prompt/response caching stores the outputs for previously seen prompts, so identical requests return cached responses instead of re-invoking the model. This reduces latency (instant response), costs (no token charges), and is valuable for applications with frequently repeated queries.",
+      "tags": ["optimization", "caching"]
+    },
+    {
+      "id": "d3-034",
+      "domain": 3,
+      "question": "A company has documents in PDF, Word, and HTML formats. They want to build a RAG-powered Q&A system. What is the FIRST step?",
+      "options": ["Fine-tune a model on all the documents", "Ingest and process documents — extract text, chunk it, generate embeddings, and store in a vector database", "Build the chat UI first", "Select the cheapest model available"],
+      "correctAnswers": [1],
+      "explanation": "The first step in building a RAG system is preparing the knowledge base: (1) ingest documents from various formats, (2) extract text content, (3) chunk documents into appropriate segments, (4) generate embeddings for each chunk, and (5) store embeddings in a vector database. Amazon Bedrock Knowledge Bases automates this entire pipeline.",
+      "tags": ["rag", "implementation"]
+    },
+    {
+      "id": "d3-035",
+      "domain": 3,
+      "question": "What is the purpose of the \"instruction\" field when configuring an Amazon Bedrock Agent?",
+      "options": ["To specify the model's API key", "To define the agent's persona, capabilities, and behavioral guidelines that shape how it responds to users", "To configure the VPC settings", "To set the billing alerts"],
+      "correctAnswers": [1],
+      "explanation": "The instruction field in a Bedrock Agent acts as the system prompt/persona definition. It tells the agent who it is, what it can do, how it should behave, and what guidelines to follow. For example: \"You are a customer service agent for XYZ Corp. Be polite, helpful, and always verify order numbers before looking up orders.\"",
+      "tags": ["bedrock", "agents", "configuration"]
+    },
+    {
+      "id": "d3-036",
+      "domain": 3,
+      "question": "Which vector database options are supported by Amazon Bedrock Knowledge Bases? (Select TWO)",
+      "options": ["MySQL", "Amazon OpenSearch Serverless", "Amazon RDS", "Amazon Aurora PostgreSQL (with pgvector)", "Amazon DynamoDB"],
+      "correctAnswers": [1, 3],
+      "explanation": "Amazon Bedrock Knowledge Bases supports several vector database options including Amazon OpenSearch Serverless, Amazon Aurora PostgreSQL (with pgvector extension), Pinecone, Redis Enterprise Cloud, and MongoDB Atlas. These databases support vector similarity search needed for RAG retrieval.",
+      "tags": ["bedrock", "knowledge-bases", "vector-database"]
+    },
+    {
+      "id": "d3-037",
+      "domain": 3,
+      "question": "What is the benefit of using \"hybrid search\" in a RAG system?",
+      "options": ["It uses both CPU and GPU for search", "It combines semantic (vector) search with keyword (lexical) search for more accurate retrieval", "It searches both cloud and on-premises databases", "It uses two different LLMs simultaneously"],
+      "correctAnswers": [1],
+      "explanation": "Hybrid search combines semantic search (finding conceptually similar content using embeddings) with keyword/lexical search (finding exact term matches). This improves retrieval quality because semantic search understands meaning while keyword search catches specific terms, acronyms, and identifiers that embeddings might miss.",
+      "tags": ["rag", "search", "hybrid"]
+    },
+    {
+      "id": "d3-038",
+      "domain": 3,
+      "question": "What is \"prompt caching\" in Amazon Bedrock?",
+      "options": ["Storing prompts in a database for reuse", "A feature that caches the processed representation of frequently used prompt prefixes to reduce latency and cost on repeated calls", "Caching the model weights", "Saving prompt templates to S3"],
+      "correctAnswers": [1],
+      "explanation": "Prompt caching in Amazon Bedrock caches the processed internal representation of prompt prefixes (like system prompts or large context blocks) that are repeated across multiple API calls. Subsequent requests with the same prefix skip re-processing, reducing both latency and cost.",
+      "tags": ["bedrock", "optimization", "caching"]
+    },
+    {
+      "id": "d3-039",
+      "domain": 3,
+      "question": "A company wants to generate marketing content in different styles for different brands. What is the MOST appropriate approach?",
+      "options": ["Use a single generic prompt for all brands", "Use different system prompts or fine-tuned models for each brand to capture their unique voice and style guidelines", "Use different vector databases for each brand", "Use different AWS regions for each brand"],
+      "correctAnswers": [1],
+      "explanation": "Different brands require different tones, styles, and guidelines. This can be achieved through: (1) brand-specific system prompts (lowest effort — include brand voice guidelines, example content, and constraints), or (2) brand-specific fine-tuned models (higher effort — train on each brand's content for deep style adaptation).",
+      "tags": ["use-case", "customization"]
+    },
+    {
+      "id": "d3-040",
+      "domain": 3,
+      "question": "What is the purpose of \"metadata filtering\" in Amazon Bedrock Knowledge Bases?",
+      "options": ["Filtering out large files from the knowledge base", "Narrowing down retrieval to specific document subsets based on metadata attributes like source, date, or category", "Filtering model parameters during training", "Removing duplicate documents"],
+      "correctAnswers": [1],
+      "explanation": "Metadata filtering allows you to attach metadata (like document type, date, department, or category) to chunks and then filter retrieval results based on these attributes. For example, a query about \"2024 HR policies\" can filter to only retrieve chunks from HR documents dated 2024, improving relevance.",
+      "tags": ["bedrock", "knowledge-bases", "metadata"]
+    }
+  ]
+}

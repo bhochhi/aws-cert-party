@@ -1,9 +1,9 @@
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import type { Domain } from '../types';
-import { allQuestions } from '../data/questions';
+import { getActiveQuestions } from '../data/questions';
 import { DOMAINS } from '../data/domains';
 import { getStudyQuestions, calculateResult } from '../utils/quiz';
-import { addResult, recordAttempt } from '../utils/storage';
+import { addResult, recordAttempt, loadActivePackIds } from '../utils/storage';
 import QuizEngine from '../components/QuizEngine';
 import ResultsView from '../components/ResultsView';
 import { useState } from 'react';
@@ -33,7 +33,8 @@ export default function StudyPage() {
     );
   }
 
-  const [questions] = useState(() => getStudyQuestions(allQuestions, domainNum, count));
+  const activeQuestions = getActiveQuestions(loadActivePackIds());
+  const [questions] = useState(() => getStudyQuestions(activeQuestions, domainNum, count));
 
   function handleComplete(answers: Record<string, number[]>, timeTaken: number) {
     const quizResult = calculateResult(questions, answers, 'study', Date.now() - timeTaken, domainNum);

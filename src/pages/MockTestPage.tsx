@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GraduationCap, Play, AlertTriangle } from 'lucide-react';
-import { allQuestions } from '../data/questions';
+import { getActiveQuestions } from '../data/questions';
 import { DOMAINS, EXAM_CONFIG } from '../data/domains';
 import { getMockTestQuestions, calculateResult } from '../utils/quiz';
-import { addResult, recordAttempt } from '../utils/storage';
+import { addResult, recordAttempt, loadActivePackIds } from '../utils/storage';
 import QuizEngine from '../components/QuizEngine';
 import ResultsView from '../components/ResultsView';
 import type { QuizResult } from '../types';
@@ -13,7 +13,9 @@ export default function MockTestPage() {
   const navigate = useNavigate();
   const [testStarted, setTestStarted] = useState(false);
   const [result, setResult] = useState<QuizResult | null>(null);
-  const [questions] = useState(() => getMockTestQuestions(allQuestions));
+  const activeQuestions = getActiveQuestions(loadActivePackIds());
+  const [questions] = useState(() => getMockTestQuestions(activeQuestions));
+  const lowPool = activeQuestions.length < EXAM_CONFIG.totalQuestions;
 
   function handleComplete(answers: Record<string, number[]>, timeTaken: number) {
     const quizResult = calculateResult(questions, answers, 'mock', Date.now() - timeTaken);
@@ -115,6 +117,20 @@ export default function MockTestPage() {
           </ul>
         </div>
       </div>
+
+      {lowPool && (
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
+          <AlertTriangle className="text-red-500 flex-shrink-0 mt-0.5" size={18} />
+          <div className="text-sm text-red-800">
+            <p className="font-semibold">Low question pool</p>
+            <p className="text-xs mt-1">
+              Your active packs only have {activeQuestions.length} questions, but the mock
+              exam needs {EXAM_CONFIG.totalQuestions}. Some domains may have fewer
+              questions than the target weight. Consider enabling more packs.
+            </p>
+          </div>
+        </div>
+      )}
 
       <button
         onClick={() => setTestStarted(true)}

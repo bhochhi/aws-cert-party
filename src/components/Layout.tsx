@@ -1,11 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
-import { BookOpen, Home, BarChart3, GraduationCap } from 'lucide-react';
+import { BookOpen, Home, BarChart3, GraduationCap, Package } from 'lucide-react';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
 
   const navItems = [
     { to: '/', label: 'Home', icon: Home },
+    { to: '/packs', label: 'Packs', icon: Package },
     { to: '/study', label: 'Study', icon: BookOpen },
     { to: '/mock-test', label: 'Mock Test', icon: GraduationCap },
     { to: '/progress', label: 'Progress', icon: BarChart3 },
