@@ -1,0 +1,606 @@
+import type { Question } from '../../types';
+
+export const domain2Questions: Question[] = [
+  {
+    id: 'd2-001',
+    domain: 2,
+    question: 'What is a foundation model?',
+    options: [
+      'A small, task-specific model trained from scratch for each use case',
+      'A large, pre-trained model that can be adapted to a wide range of downstream tasks',
+      'A model that only works with structured data',
+      'A rule-based system that doesn\'t use machine learning',
+    ],
+    correctAnswers: [0 + 1],
+    explanation:
+      'Foundation models are large-scale models pre-trained on broad datasets that can be adapted (via fine-tuning, prompt engineering, or RAG) to a wide range of downstream tasks. Examples include GPT, Claude, and Amazon Titan.',
+    tags: ['foundation-models', 'basics'],
+  },
+  {
+    id: 'd2-002',
+    domain: 2,
+    question: 'Which component of the Transformer architecture allows the model to weigh the importance of different parts of the input when generating output?',
+    options: [
+      'Convolutional layers',
+      'Recurrent connections',
+      'Self-attention mechanism',
+      'Pooling layers',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'The self-attention mechanism is the core innovation of the Transformer architecture. It allows each element in the input to attend to every other element, enabling the model to capture long-range dependencies and understand context regardless of distance in the sequence.',
+    tags: ['transformers', 'attention'],
+  },
+  {
+    id: 'd2-003',
+    domain: 2,
+    question: 'What is a "token" in the context of large language models?',
+    options: [
+      'An authentication credential for API access',
+      'A unit of text (word, subword, or character) that the model processes',
+      'A type of neural network layer',
+      'A billing unit for AWS services',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'In LLMs, a token is the basic unit of text the model processes. Tokens can be whole words, subwords, or characters depending on the tokenizer. For example, "understanding" might be split into "under" + "standing." Token count affects cost, latency, and context window limits.',
+    tags: ['llm-basics', 'tokens'],
+  },
+  {
+    id: 'd2-004',
+    domain: 2,
+    question: 'What is the "temperature" parameter in model inference?',
+    options: [
+      'The GPU temperature during model training',
+      'A parameter that controls the randomness/creativity of the model\'s output',
+      'The rate at which the model learns during training',
+      'The maximum number of tokens in the response',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Temperature is an inference parameter that controls the randomness of the model\'s output. Lower temperature (e.g., 0.1) makes outputs more deterministic and focused; higher temperature (e.g., 0.9) makes outputs more creative and diverse. A temperature of 0 gives the most likely output.',
+    tags: ['inference-params', 'temperature'],
+  },
+  {
+    id: 'd2-005',
+    domain: 2,
+    question: 'Which AWS service provides access to foundation models from multiple providers through a single API?',
+    options: [
+      'Amazon SageMaker JumpStart',
+      'Amazon Bedrock',
+      'Amazon Comprehend',
+      'AWS Lambda',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon Bedrock is a fully managed service that offers access to foundation models from Amazon (Titan), Anthropic (Claude), Meta (Llama), AI21 Labs, Cohere, Stability AI, and others through a unified API, without managing infrastructure.',
+    tags: ['aws-services', 'bedrock'],
+  },
+  {
+    id: 'd2-006',
+    domain: 2,
+    question: 'What is prompt engineering?',
+    options: [
+      'Building hardware systems for AI inference',
+      'Training a new model from scratch with custom data',
+      'Designing and optimizing input prompts to get better outputs from a foundation model',
+      'Deploying a model to a production endpoint',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Prompt engineering is the practice of designing, refining, and optimizing the input text (prompts) given to a foundation model to elicit the desired output. It includes techniques like few-shot examples, chain-of-thought prompting, and role-based prompting.',
+    tags: ['prompt-engineering'],
+  },
+  {
+    id: 'd2-007',
+    domain: 2,
+    question: 'What is Retrieval Augmented Generation (RAG)?',
+    options: [
+      'A technique for generating random training data',
+      'A method that retrieves relevant external information and includes it in the prompt to improve model responses',
+      'A type of model architecture that replaces transformers',
+      'An AWS service for document retrieval',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'RAG combines information retrieval with text generation. It retrieves relevant documents or data from an external knowledge base and includes them in the context provided to the LLM, enabling the model to generate responses grounded in specific, up-to-date information.',
+    tags: ['rag', 'design-patterns'],
+  },
+  {
+    id: 'd2-008',
+    domain: 2,
+    question: 'What is the key difference between fine-tuning and RAG?',
+    options: [
+      'Fine-tuning is free; RAG has a cost',
+      'Fine-tuning modifies model weights with new training data; RAG provides context at inference time without changing the model',
+      'RAG is more accurate than fine-tuning in all cases',
+      'Fine-tuning works only with text; RAG works with images too',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Fine-tuning updates the model\'s internal weights by training on domain-specific data, permanently altering the model. RAG provides relevant external information as context during inference without modifying the model itself. RAG is often preferred when data changes frequently; fine-tuning is better for teaching new skills or styles.',
+    tags: ['fine-tuning', 'rag', 'comparison'],
+  },
+  {
+    id: 'd2-009',
+    domain: 2,
+    question: 'What are embeddings in the context of AI?',
+    options: [
+      'Hardware components embedded in AI chips',
+      'Numerical vector representations of data (text, images) that capture semantic meaning',
+      'Code snippets embedded in documentation',
+      'Encrypted model parameters',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Embeddings are dense numerical vectors that represent data (text, images, etc.) in a way that captures semantic meaning. Similar concepts have similar vectors. They are fundamental to RAG (for semantic search), recommendation systems, and many other AI applications.',
+    tags: ['embeddings', 'basics'],
+  },
+  {
+    id: 'd2-010',
+    domain: 2,
+    question: 'Which of the following is an Amazon Titan model capability?',
+    options: [
+      'Only text generation',
+      'Text generation, embeddings, and image generation',
+      'Only image classification',
+      'Only speech recognition',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon Titan is a family of foundation models that includes Titan Text (text generation and summarization), Titan Embeddings (generating vector embeddings for search and RAG), and Titan Image Generator (creating and editing images). They are first-party models available through Amazon Bedrock.',
+    tags: ['aws-services', 'titan'],
+  },
+  {
+    id: 'd2-011',
+    domain: 2,
+    question: 'What is "few-shot prompting"?',
+    options: [
+      'Training a model with very few data points',
+      'Providing a few examples within the prompt to guide the model\'s response',
+      'Running inference with limited computing resources',
+      'A technique to reduce model size',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Few-shot prompting involves providing a small number of examples (typically 2-5) within the prompt to demonstrate the desired output format or behavior. This helps the model understand the task without any fine-tuning — it\'s a form of in-context learning.',
+    tags: ['prompt-engineering', 'few-shot'],
+  },
+  {
+    id: 'd2-012',
+    domain: 2,
+    question: 'What does "top-p" (nucleus sampling) control in model inference?',
+    options: [
+      'The maximum number of tokens in the response',
+      'The cumulative probability threshold for token selection, controlling diversity',
+      'The number of attention heads in the model',
+      'The training batch size',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Top-p (nucleus sampling) selects from the smallest set of tokens whose cumulative probability exceeds the threshold p. For example, top-p of 0.9 considers only tokens that together have a 90% probability. Lower top-p values give more focused outputs; higher values allow more diversity.',
+    tags: ['inference-params', 'top-p'],
+  },
+  {
+    id: 'd2-013',
+    domain: 2,
+    question: 'What is a "hallucination" in the context of generative AI?',
+    options: [
+      'A visual artifact in generated images',
+      'When the model generates content that sounds plausible but is factually incorrect or fabricated',
+      'A hardware error during model inference',
+      'When the model refuses to generate any output',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Hallucination occurs when an AI model generates information that sounds confident and plausible but is factually incorrect, nonsensical, or completely fabricated. This is a well-known limitation of LLMs and can be mitigated using techniques like RAG, grounding, and fact-checking.',
+    tags: ['limitations', 'hallucination'],
+  },
+  {
+    id: 'd2-014',
+    domain: 2,
+    question: 'What is the "context window" of a large language model?',
+    options: [
+      'The browser window used to interact with the model',
+      'The maximum amount of text (in tokens) the model can process in a single request, including both input and output',
+      'The training dataset size',
+      'The deployment region for the model',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'The context window is the maximum number of tokens (input + output combined) that an LLM can process in a single request. Larger context windows allow the model to consider more information but also increase cost and latency. Context windows range from 4K to 200K+ tokens depending on the model.',
+    tags: ['llm-basics', 'context-window'],
+  },
+  {
+    id: 'd2-015',
+    domain: 2,
+    question: 'Which prompting technique involves asking the model to "think step by step"?',
+    options: [
+      'Zero-shot prompting',
+      'Few-shot prompting',
+      'Chain-of-thought prompting',
+      'Negative prompting',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Chain-of-thought (CoT) prompting asks the model to break down its reasoning into explicit steps. Adding phrases like "think step by step" or "explain your reasoning" often dramatically improves accuracy on complex reasoning, math, and logic tasks.',
+    tags: ['prompt-engineering', 'chain-of-thought'],
+  },
+  {
+    id: 'd2-016',
+    domain: 2,
+    question: 'What is in-context learning?',
+    options: [
+      'Training the model on new data within Amazon SageMaker',
+      'The model\'s ability to learn and adapt from examples provided within the prompt, without weight updates',
+      'Learning from contextual clues in images',
+      'A supervised learning technique',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'In-context learning is the ability of LLMs to learn from examples or instructions provided in the prompt at inference time, without any gradient updates or fine-tuning. Zero-shot, one-shot, and few-shot prompting are all forms of in-context learning.',
+    tags: ['llm-basics', 'in-context-learning'],
+  },
+  {
+    id: 'd2-017',
+    domain: 2,
+    question: 'What is the main advantage of using Amazon Bedrock over self-hosting foundation models?',
+    options: [
+      'Bedrock models are always more accurate',
+      'Bedrock eliminates the need to manage infrastructure, provides a unified API, and offers built-in security features',
+      'Bedrock is the only way to access Claude models',
+      'Bedrock provides unlimited free usage',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon Bedrock is a fully managed service that removes the operational burden of hosting, scaling, and maintaining foundation model infrastructure. It provides a unified API to access models from multiple providers, built-in security/privacy features, and integration with other AWS services.',
+    tags: ['aws-services', 'bedrock'],
+  },
+  {
+    id: 'd2-018',
+    domain: 2,
+    question: 'What is "zero-shot" prompting?',
+    options: [
+      'Providing no training data at all and expecting the model to fail',
+      'Asking the model to perform a task using only instructions, without any examples',
+      'A model that has never been trained',
+      'Removing all safety guardrails from the model',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Zero-shot prompting asks the model to perform a task based solely on the instruction/description, without any examples. LLMs can often perform well on zero-shot tasks due to their extensive pre-training. Example: "Classify the following review as positive or negative: ..."',
+    tags: ['prompt-engineering', 'zero-shot'],
+  },
+  {
+    id: 'd2-019',
+    domain: 2,
+    question: 'What is the purpose of a vector database in a RAG architecture?',
+    options: [
+      'To store the foundation model\'s weights',
+      'To store and efficiently search embeddings (vector representations) of documents for semantic retrieval',
+      'To log API calls for billing',
+      'To cache model responses',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'In a RAG architecture, vector databases store document embeddings and enable fast similarity searches. When a user query comes in, it\'s converted to an embedding and compared against stored vectors to find the most semantically relevant documents, which are then passed to the LLM as context.',
+    tags: ['rag', 'vector-database'],
+  },
+  {
+    id: 'd2-020',
+    domain: 2,
+    question: 'What does "top-k" sampling control?',
+    options: [
+      'The number of models to ensemble',
+      'The number of highest-probability tokens to consider when generating each token',
+      'The number of training epochs',
+      'The maximum output length',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Top-k sampling restricts the model to only consider the k most probable next tokens at each step. For example, top-k=50 means only the 50 most likely tokens are considered. Lower k values make output more predictable; higher values allow more variety.',
+    tags: ['inference-params', 'top-k'],
+  },
+  {
+    id: 'd2-021',
+    domain: 2,
+    question: 'What is a "system prompt" in the context of LLMs?',
+    options: [
+      'An error message from the operating system',
+      'The initial instruction that sets the model\'s behavior, role, and constraints for the conversation',
+      'A command to restart the model',
+      'The model\'s internal training objective',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'A system prompt is a special instruction provided at the beginning of a conversation that defines the model\'s role, behavior, tone, and constraints. For example: "You are a helpful AWS solutions architect. Answer questions about cloud services concisely." It persists throughout the conversation.',
+    tags: ['prompt-engineering', 'system-prompt'],
+  },
+  {
+    id: 'd2-022',
+    domain: 2,
+    question: 'Which of the following is a key limitation of foundation models?',
+    options: [
+      'They can only process English text',
+      'They cannot run on AWS infrastructure',
+      'Their training data has a knowledge cutoff date, so they may lack recent information',
+      'They can only generate text, not understand it',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'Foundation models are trained on data up to a certain cutoff date and don\'t have knowledge of events after that point. This is why techniques like RAG are important — they provide the model with current, relevant information at inference time.',
+    tags: ['limitations', 'knowledge-cutoff'],
+  },
+  {
+    id: 'd2-023',
+    domain: 2,
+    question: 'What is model fine-tuning?',
+    options: [
+      'Adjusting the inference parameters like temperature and top-p',
+      'Further training a pre-trained model on a specific domain or task dataset to adapt its behavior',
+      'Deploying a model to a faster instance type',
+      'Compressing a model to reduce its size',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Fine-tuning takes a pre-trained foundation model and further trains it on a smaller, domain-specific dataset to adapt its behavior, knowledge, or output style for particular use cases. This modifies the model\'s weights, unlike RAG or prompt engineering.',
+    tags: ['fine-tuning'],
+  },
+  {
+    id: 'd2-024',
+    domain: 2,
+    question: 'Amazon Bedrock supports customization of foundation models through which methods? (Select TWO)',
+    options: [
+      'Building models from scratch',
+      'Fine-tuning with your own data',
+      'Modifying the model\'s source code',
+      'Continued pre-training on domain-specific data',
+      'Changing the model\'s architecture',
+    ],
+    correctAnswers: [1, 3],
+    explanation:
+      'Amazon Bedrock supports two main customization methods: (1) Fine-tuning, which trains the model on labeled examples for specific tasks, and (2) Continued pre-training, which exposes the model to additional unlabeled domain-specific data to adapt its language understanding. Both modify model weights.',
+    tags: ['aws-services', 'bedrock', 'customization'],
+  },
+  {
+    id: 'd2-025',
+    domain: 2,
+    question: 'What is a "diffusion model" in generative AI?',
+    options: [
+      'A model that distributes computations across multiple GPUs',
+      'A type of generative model that creates data by learning to reverse a gradual noising process',
+      'A model that spreads information across a network',
+      'A traditional neural network used for classification',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Diffusion models generate data (typically images) by learning to reverse a gradual process of adding noise. They start with pure noise and iteratively denoise it to create a coherent output. Stable Diffusion and DALL-E are well-known examples. Amazon Titan Image Generator also uses diffusion.',
+    tags: ['generative-models', 'diffusion'],
+  },
+  {
+    id: 'd2-026',
+    domain: 2,
+    question: 'What is "prompt injection"?',
+    options: [
+      'Adding more examples to improve prompt quality',
+      'A security attack where malicious instructions are embedded in user input to manipulate the model\'s behavior',
+      'The process of inserting prompts into a database',
+      'A technique for improving model accuracy',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Prompt injection is a security vulnerability where an attacker crafts input that overrides or manipulates the model\'s system instructions or intended behavior. For example, a user might try to trick the model into ignoring its safety guidelines. Guardrails and input validation help mitigate this.',
+    tags: ['security', 'prompt-injection'],
+  },
+  {
+    id: 'd2-027',
+    domain: 2,
+    question: 'What is Amazon PartyRock?',
+    options: [
+      'An AWS service for music generation',
+      'A no-code playground for building and sharing generative AI applications powered by Amazon Bedrock',
+      'A monitoring dashboard for AI workloads',
+      'A data labeling service',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon PartyRock is a free, no-code, shareable generative AI playground built on Amazon Bedrock. It allows anyone to build and experiment with generative AI applications by creating "apps" through a simple interface — no AWS account or coding required.',
+    tags: ['aws-services', 'partyrock'],
+  },
+  {
+    id: 'd2-028',
+    domain: 2,
+    question: 'What is the main purpose of an "embedding model"?',
+    options: [
+      'To generate human-readable text',
+      'To convert data (text, images) into numerical vector representations for semantic comparison',
+      'To compress model files for deployment',
+      'To encrypt sensitive data',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Embedding models convert data into dense numerical vectors (embeddings) that capture semantic meaning. These vectors enable semantic search, similarity comparison, clustering, and are a key component of RAG architectures. Amazon Titan Embeddings is an example.',
+    tags: ['embeddings', 'embedding-model'],
+  },
+  {
+    id: 'd2-029',
+    domain: 2,
+    question: 'When should you prefer RAG over fine-tuning? (Select TWO)',
+    options: [
+      'When you want to permanently change the model\'s behavior or tone',
+      'When the knowledge base changes frequently and needs to stay current',
+      'When you need to reference specific, verifiable source documents',
+      'When you have very limited external data',
+      'When you want to reduce the model\'s context window size',
+    ],
+    correctAnswers: [1, 2],
+    explanation:
+      'RAG is preferred when: (1) the knowledge changes frequently (RAG retrieves current data at inference time), and (2) you need verifiable, source-attributed answers (RAG can cite specific documents). Fine-tuning is better for changing the model\'s behavior, style, or teaching it domain-specific skills.',
+    tags: ['rag', 'fine-tuning', 'comparison'],
+  },
+  {
+    id: 'd2-030',
+    domain: 2,
+    question: 'What is "model latency" in the context of generative AI?',
+    options: [
+      'The time it takes to train a model',
+      'The delay between sending a request and receiving the complete response from the model',
+      'The time between model updates',
+      'The time to deploy a model endpoint',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Model latency refers to the time between submitting a prompt and receiving the response. It\'s affected by model size, input/output token count, instance type, and concurrent request load. Streaming responses can reduce perceived latency by sending tokens as they\'re generated.',
+    tags: ['performance', 'latency'],
+  },
+  {
+    id: 'd2-031',
+    domain: 2,
+    question: 'What is a "multi-modal" foundation model?',
+    options: [
+      'A model deployed across multiple AWS regions',
+      'A model that can process and generate multiple types of data such as text, images, and audio',
+      'A model trained on multiple GPUs simultaneously',
+      'A model that supports multiple programming languages',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Multi-modal models can understand and generate content across multiple data types (modalities), such as text, images, audio, and video. For example, a multi-modal model can describe the contents of an image, answer questions about a photo, or generate images from text descriptions.',
+    tags: ['foundation-models', 'multi-modal'],
+  },
+  {
+    id: 'd2-032',
+    domain: 2,
+    question: 'What is the primary purpose of tokenization in LLMs?',
+    options: [
+      'To encrypt the input for security',
+      'To break down text into smaller units (tokens) that the model can process numerically',
+      'To validate API authentication tokens',
+      'To compress the input to save storage',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Tokenization splits input text into tokens (words, subwords, or characters) and converts them into numerical IDs that the model can process. Different models use different tokenizers (e.g., BPE, WordPiece). Tokenization affects model performance, cost, and context window usage.',
+    tags: ['llm-basics', 'tokenization'],
+  },
+  {
+    id: 'd2-033',
+    domain: 2,
+    question: 'What is "model distillation"?',
+    options: [
+      'Removing harmful content from model outputs',
+      'Training a smaller, faster "student" model to mimic the behavior of a larger "teacher" model',
+      'Converting a model from one framework to another',
+      'Distributing model inference across multiple servers',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Model distillation (or knowledge distillation) trains a smaller "student" model to replicate the outputs of a larger "teacher" model. The student model achieves similar quality with lower latency, cost, and resource requirements, making it suitable for production deployment.',
+    tags: ['optimization', 'distillation'],
+  },
+  {
+    id: 'd2-034',
+    domain: 2,
+    question: 'Which of the following BEST describes "grounding" in generative AI?',
+    options: [
+      'Physically connecting AI hardware to the ground for safety',
+      'Anchoring model responses to verifiable, factual data sources to reduce hallucinations',
+      'The initial setup of a model training environment',
+      'Restricting model access to certain users',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Grounding connects model outputs to verified external data sources, ensuring responses are based on factual information rather than the model\'s parametric memory alone. RAG is a key grounding technique. Grounding helps reduce hallucinations and improve accuracy.',
+    tags: ['grounding', 'hallucination'],
+  },
+  {
+    id: 'd2-035',
+    domain: 2,
+    question: 'What does "stop sequence" control in model inference?',
+    options: [
+      'When the model should stop training',
+      'A specific string or token that, when generated, causes the model to stop producing further output',
+      'The maximum GPU memory allocation',
+      'When to rotate API keys',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'A stop sequence is a predefined string or token that tells the model to stop generating output when it appears. This is useful for controlling output format, preventing the model from generating beyond a desired boundary, and managing token costs.',
+    tags: ['inference-params', 'stop-sequence'],
+  },
+  {
+    id: 'd2-036',
+    domain: 2,
+    question: 'What is "Provisioned Throughput" in Amazon Bedrock?',
+    options: [
+      'A free tier for testing foundation models',
+      'A commitment to purchase a guaranteed level of model inference capacity for consistent performance',
+      'The maximum number of models you can deploy',
+      'A data transfer rate for uploading training data',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Provisioned Throughput in Amazon Bedrock allows you to purchase a dedicated level of throughput (measured in model units) for a specific model. This guarantees consistent performance and is recommended for production workloads with predictable usage patterns.',
+    tags: ['aws-services', 'bedrock', 'provisioned-throughput'],
+  },
+  {
+    id: 'd2-037',
+    domain: 2,
+    question: 'What is the relationship between model size (number of parameters) and model performance?',
+    options: [
+      'Larger models are always better for every task',
+      'Smaller models always outperform larger ones due to lower latency',
+      'Generally, larger models have more capabilities, but smaller models can be sufficient for specific tasks and offer better cost/latency',
+      'Model size has no impact on performance',
+    ],
+    correctAnswers: [2],
+    explanation:
+      'While larger models tend to have broader capabilities and better general performance, they also cost more and have higher latency. Smaller, specialized models can perform equally well or better on specific tasks while being faster and cheaper. The right model size depends on the use case, accuracy requirements, and budget.',
+    tags: ['foundation-models', 'model-selection'],
+  },
+  {
+    id: 'd2-038',
+    domain: 2,
+    question: 'What is "semantic search"?',
+    options: [
+      'Searching for exact keyword matches in documents',
+      'Searching based on the meaning and intent behind a query, using embeddings to find semantically similar content',
+      'A search engine provided by AWS',
+      'Searching for code syntax errors',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Semantic search goes beyond keyword matching by understanding the meaning and intent behind a query. It uses embeddings to represent both queries and documents as vectors, then finds the most semantically similar matches. This is a key component of RAG architectures.',
+    tags: ['embeddings', 'semantic-search'],
+  },
+  {
+    id: 'd2-039',
+    domain: 2,
+    question: 'Which of the following is a benefit of using managed AI services (like Amazon Bedrock) compared to self-managed solutions?',
+    options: [
+      'Complete control over model architecture and weights',
+      'Lower operational overhead with automatic scaling, security, and no infrastructure management',
+      'Access to unlimited free GPU resources',
+      'Guaranteed highest accuracy for all use cases',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Managed services like Amazon Bedrock abstract away infrastructure management, provide automatic scaling, built-in security features, and simplified API access. The trade-off is less control over model internals compared to self-hosting, but for most use cases, the reduced operational burden is a significant advantage.',
+    tags: ['aws-services', 'managed-services'],
+  },
+  {
+    id: 'd2-040',
+    domain: 2,
+    question: 'What type of data does Amazon Titan Embeddings generate?',
+    options: [
+      'Images from text descriptions',
+      'Dense vector representations of text or images for semantic similarity tasks',
+      'Translated text in multiple languages',
+      'Audio from text input',
+    ],
+    correctAnswers: [1],
+    explanation:
+      'Amazon Titan Embeddings generates dense numerical vector representations (embeddings) of text or images. These embeddings capture semantic meaning and are used for semantic search, RAG, personalization, and clustering applications.',
+    tags: ['aws-services', 'titan', 'embeddings'],
+  },
+];

@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-aws-orange: #ff9900;
+  --color-aws-orange-dark: #ec7211;
+  --color-aws-squid-ink: #232f3e;
+  --color-aws-smile: #252f3e;
+  --color-aws-blue: #1b66c9;
+  --color-correct: #16a34a;
+  --color-incorrect: #dc2626;
+  --color-domain1: #3b82f6;
+  --color-domain2: #8b5cf6;
+  --color-domain3: #ec4899;
+  --color-domain4: #14b8a6;
+  --color-domain5: #f59e0b;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900 antialiased;
+}
